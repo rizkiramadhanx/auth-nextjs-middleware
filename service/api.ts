@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { destroyCookie } from 'nookies';
 import { useLogout } from '../hooks/useLogout';
+import { API_URL } from '../utils/constants';
 
 export const ApiService = {
   init() {
@@ -14,13 +14,22 @@ export const ApiService = {
       },
       async (error) => {
         if (error.response.status === 401) {
-          const { mutate } = useLogout();
-          mutate(undefined, {
-            onSuccess: () => {
-              return console.log('ok');
-            },
-          });
+          try {
+            const requestData = {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              url: `${API_URL}/api/auth/logout`,
+            };
+
+            await axios(requestData);
+            location.reload();
+          } catch (error) {
+            throw error;
+          }
         }
+        throw error;
       }
     );
   },

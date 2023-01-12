@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { KEY_COOKIE } from './utils/constants';
+import { ApiService } from './service/api';
 
 const publicPath = (path: string) => {
   return (
@@ -9,6 +10,10 @@ const publicPath = (path: string) => {
     path.startsWith('/favicon') ||
     path.startsWith('/register')
   );
+};
+
+const privatePath = (path: string) => {
+  return path.startsWith('/dashboard');
 };
 
 export async function middleware(request: NextRequest) {
@@ -22,11 +27,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  if (publicPath(url)) {
-    return NextResponse.next();
-  }
-
-  if (!publicPath(url)) {
+  if (privatePath(url)) {
     if (accessToken == undefined) {
       return NextResponse.redirect(new URL('/login', request.url));
     }

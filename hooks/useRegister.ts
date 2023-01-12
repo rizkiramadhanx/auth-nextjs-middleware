@@ -19,8 +19,8 @@ export const useRegister = () => {
 
         const response = await axios(requestData);
         return response.data;
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        throw error.response.data;
       }
     },
   });

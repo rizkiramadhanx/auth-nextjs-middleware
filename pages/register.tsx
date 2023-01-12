@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, MouseEvent, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
+
 import { useRegister } from '../hooks/useRegister';
 import { TFormRegister } from '../utils/type';
 
@@ -12,12 +14,17 @@ const Register = () => {
 
   const router = useRouter();
 
+  const notify = (e: string | any) => toast.error(e);
+
   const { mutate } = useRegister();
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     mutate(formData, {
-      onSuccess: (e) => {
+      onSuccess: () => {
         router.replace('/dashboard');
+      },
+      onError: (response: any) => {
+        notify(response.msg.message || response.msg);
       },
     });
   };
@@ -29,6 +36,7 @@ const Register = () => {
 
   return (
     <div className="container">
+      <Toaster position="top-right" />
       <div className="flex justify-center  items-center sm:min-h-screen">
         <form className="w-3/4 sm:w-[500px] my-10 border-sky-900 p-5 rounded-md border-2 flex flex-col gap-y-2">
           <h1 className="text-center text-2xl font-bold">Register Menu</h1>
