@@ -13,7 +13,7 @@ const publicPath = (path: string) => {
 };
 
 const privatePath = (path: string) => {
-  return path.startsWith('/dashboard');
+  return path.startsWith('/dashboard') || path.startsWith('/me');
 };
 
 export async function middleware(request: NextRequest) {

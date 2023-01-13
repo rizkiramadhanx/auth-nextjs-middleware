@@ -24,7 +24,7 @@ const Dashboard = () => {
         <h1 className="text-3xl font-semibold">
           Hello, {isSuccess && data.user.username} 😎😎
         </h1>
-        <p className="text-xl font-medium mt-2">Everything is good right ?</p>
+        <p className="text-xl font-medium mt-2">Everything is good, right ?</p>
       </div>
     </Layout>
   );
