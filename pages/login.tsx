@@ -20,7 +20,8 @@ const Login = () => {
     e.preventDefault();
     mutate(formData, {
       onSuccess: () => {
-        router.replace('/dashboard');
+        // router.replace('/dashboard');
+        console.log('ok bg');
       },
       onError: (res: any) => {
         notify(() => {

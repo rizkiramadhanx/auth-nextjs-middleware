@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   ApiService.init();
-  ApiService.handle401Inteceptor();
+  // ApiService.handle401Inteceptor();
 
   return (
     <QueryClientProvider client={queryClient}>

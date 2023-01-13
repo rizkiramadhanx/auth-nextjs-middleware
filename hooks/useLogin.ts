@@ -10,6 +10,7 @@ export const useLogin = () => {
       const requestData = {
         method: 'post',
         data: data,
+        withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
         },
